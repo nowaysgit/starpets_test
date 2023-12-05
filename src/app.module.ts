@@ -25,6 +25,7 @@ import { MigrationsModule } from './modules/migrations/migrations.module';
           database: config.postgres.database,
           autoLoadModels: true,
           synchronize: false, //use Migrations module
+          logging: false,
         };
       },
       inject: [ConfigService],
