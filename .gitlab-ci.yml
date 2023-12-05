@@ -1,0 +1,26 @@
+default:
+  tags:
+    - nodejs
+
+variables:
+  BASE_DIR: /docker/server
+
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+  when: on_success
+  script: docker-compose build
+
+deploy:
+  stage: deploy
+  when: on_success
+  rules:
+    - if: "$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH"
+  script:
+    - docker-compose down --remove-orphans
+    - docker-compose up -d
